@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <title>Gorim Test</title>
+        <link rel="stylesheet" type="text/css" href="/static/style.css">
+    </head>
+    <body>
+        <p>🎉Welcome to GoRIM Analytics🎉</p>
+        <p>The following table shows correlation between initiative/regulation/society from hello_word dataset</p>
+        <br/>
+        <table>
+            <tr>
+                <th>Columm 1</th>
+                <th>Columm 2</th>
+                <th>Correlation</th>
+            </tr>
+            {% for d in data %}
+                <tr>
+                    <td>{{ d[0] }}</td>
+                    <td>{{ d[1] }}</td>
+                    <td>{{ d[2] }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </body>
+</html>
