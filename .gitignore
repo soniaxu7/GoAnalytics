@@ -1,5 +1,16 @@
+# Mac files
 .DS_store
+
+# Pycharm files
 .idea/
+
+# Python
 env/
 lib/
 __pycache__
+
+# Node dependencies
+node_modules/
+
+# JavaScript Runtime files
+dist/

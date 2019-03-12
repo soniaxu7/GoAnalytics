@@ -1,15 +1,13 @@
 from flask import Flask, render_template, request
 
 from goa.process.gorim import gorim
-from goa.storage.storage import run_storage
+# from goa.storage.storage import run_storage
 
-print('----------test')
-
-app = Flask(__name__)
+app = Flask(__name__, static_folder='./dist',)
 
 @app.route("/")
-def hello():
-    return "Hello World!"
+def index():
+    return render_template('index.html')
 
 @app.route('/test')
 def gorim_test():
@@ -37,9 +35,13 @@ def submitted_form():
         site=site,
         comments=comments)
 
+if __name__ == '__main__':
+    app.jinja_env.auto_reload = True
+    app.config['TEMPLATES_AUTO_RELOAD'] = True
+    app.run(debug=True, host='0.0.0.0')
 
 # test google cloud storage
-run_storage()
+# run_storage()
 
 
 
