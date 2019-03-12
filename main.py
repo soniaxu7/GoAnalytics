@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 
 from goa.process.gorim import gorim
+from goa.storage.storage import run_storage
 
 print('----------test')
 
@@ -35,4 +36,10 @@ def submitted_form():
         email=email,
         site=site,
         comments=comments)
+
+
+# test google cloud storage
+run_storage()
+
+
 
