@@ -1,12 +1,12 @@
-import Button from 'react-bootstrap/Button';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Main from './scripts/main';
 
-function component() {
-  let element = document.createElement('div');
+import './style/index.less';
 
-  // Lodash, currently included via a script, is required for this line to work
-  element.innerHTML = 'hi index.js';
+let element = document.createElement('div');
+document.body.appendChild(element);
 
-  return element;
-}
+ReactDOM.render(<Main />, element);
 
-document.body.appendChild(component());
+module.hot.accept();

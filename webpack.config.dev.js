@@ -1,13 +1,8 @@
-const path = require('path');
+var webpack = require('./webpack.config');
 
-module.exports = {
-  entry: './static/index.js',
-  output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist')
-  },
+module.exports = Object.assign({}, webpack, {
   watch: true,
   watchOptions: {
     ignored: ['node_modules']
   }
-};
+});
