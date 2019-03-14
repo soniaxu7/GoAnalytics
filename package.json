@@ -14,7 +14,7 @@
   "scripts": {
     "build": "webpack --config webpack.config.js",
     "start": "webpack-dev-server --config ./webpack.config.js --mode development",
-    "flask": "source env/bin/activate && export FLASK_APP='main.py' && python3 -m flask run"
+    "flask": "source env/bin/activate && export FLASK_APP='main.py' && python3 -m flask run --host='0.0.0.0'"
   },
   "keywords": [],
   "author": "Yina Xu",
@@ -41,9 +41,14 @@
     "acorn": "^6.1.1",
     "babel-preset-react": "^6.24.1",
     "bootstrap": "^4.3.1",
+    "fs": "0.0.1-security",
+    "net": "^1.0.2",
     "react": "^16.8.4",
     "react-bootstrap": "^1.0.0-beta.5",
     "react-dom": "^16.8.4",
-    "react-router-dom": "^4.3.1"
+    "react-router-dom": "^4.3.1",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4",
+    "tls": "0.0.1"
   }
 }

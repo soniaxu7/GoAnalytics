@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
 import { Header, Menu, Page, Upload } from './components/index';
 
 function AppRouter() {
@@ -10,8 +10,9 @@ function AppRouter() {
         <div className="main-content">
           <div className="main-left"><Menu items={['Hello_world']} /></div>
           <div className="main-right">
+            <Route exact path="/" render={() => (<Redirect to="/upload"/>)} />
             <Route path="/upload" component={Upload} />
-            <Route path="/p" component={Page} />
+            <Route path="/p/:name" component={Page} />
           </div>
         </div>
       </div>

@@ -44,5 +44,8 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin({
         filename: "./dist/style.css"
     })
-  ]
+  ],
+  node: {
+    fs: "empty"
+  }
 };

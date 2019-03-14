@@ -14,9 +14,7 @@ class Menu extends React.Component {
         </Link>
         <Nav defaultActiveKey="/home" className="flex-column">
           {items.map((item) => (
-            <Link to="/p" key={{item}}>
-              <Nav.Link>{item}</Nav.Link>
-            </Link>
+            <Link className="nav-link" to={`/p/${item}`} key={{item}}>{item}</Link>
           ))}
         </Nav>
       </div>
