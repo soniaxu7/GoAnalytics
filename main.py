@@ -6,6 +6,8 @@ from goa.process.gorim import gorim
 app = Flask(__name__, static_folder='./dist',)
 
 @app.route("/")
+@app.route("/upload")
+@app.route("/p")
 def index():
     return render_template('index.html')
 
