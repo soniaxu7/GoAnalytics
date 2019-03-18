@@ -4,7 +4,14 @@ import AppRouter from './scripts/router';
 
 import './style/index.less';
 
-let element = document.createElement('div');
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import rootReducer from './scripts/reducers';
+
+const store = createStore(rootReducer);
+
+
+const element = document.createElement('div');
 document.body.appendChild(element);
 
 ReactDOM.render(<AppRouter />, element);

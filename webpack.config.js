@@ -26,6 +26,11 @@ module.exports = {
             loader: 'less-loader' // compiles Less to CSS
           }
         ]
+      }, {
+        type: 'javascript/auto',
+        test: /\.json$/,
+        exclude: /node_modules/,
+        use: ['raw-loader']
       }
     ]
   },

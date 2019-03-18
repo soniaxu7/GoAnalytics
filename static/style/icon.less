@@ -1,0 +1,24 @@
+.icon-loading {
+  display: inline-block;
+  width: 36px;
+  height: 36px;
+}
+
+.icon-loading {
+  content: " ";
+  display: block;
+  margin: 1px;
+  border-radius: 50%;
+  border: 5px solid gray;
+  border-color: gray transparent gray transparent;
+  animation: icon-loading-animation 1.2s linear infinite;
+}
+
+@keyframes icon-loading-animation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

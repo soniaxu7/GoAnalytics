@@ -24,44 +24,32 @@ function get_POST_options(url, formData) {
   return Object.assign({}, POST, { url, formData });
 }
 
-function get_dataset() {
-  let url = 'http://localhost:5000/api/get_dataset';
-  let options = get_GET_options(url);
+const request = {
+  get_dataset() {
+    return '';
+  },
 
-  return rp(options);
-}
+  upload_dataset(data) {
+    var form = document.getElementById('form-upload');
+    var formData = new FormData(form);
 
-function upload_dataset(data) {
-  let options =   {
-    method: 'POST',
-    url: 'http://localhost:5000/api/upload_dataset',
-    headers: {
-      'content-type': 'multipart/form-data',
-    },
-    multipart: {
-         chunked: false,
-         data:[
-          {
-            'Content-Disposition': 'form-data; name="name"',
-            body :  data.name
-          },
-          {
-            'Content-Disposition': 'attachment; filename=MyVerySpecial.csv',
-            'Content-Type': 'text/csv',
-            body: data.initiative
-          }
-          ]
-      },
-    json: true
-  };
-  console.log(data)
-  // let url = ;
-  // let options = get_POST_options(url, data);
+    var request = new XMLHttpRequest();
+    request.open("POST","/api/upload_dataset", true);
 
-  return rp(options);
-}
+    request.send(formData);
+  }, 
 
-export default {
-  get_dataset,
-  upload_dataset
-}
+  get_relations(name) {
+    let options = {
+        uri: 'http://localhost:5000/api/get_relations?name=' + name,
+        headers: {
+            'User-Agent': 'Request-Promise'
+        },
+        json: true
+    };
+    
+    return rp(options);
+  }
+};
+
+export default request;
