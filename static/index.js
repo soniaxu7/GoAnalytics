@@ -10,10 +10,14 @@ import rootReducer from './scripts/reducers';
 
 const store = createStore(rootReducer);
 
-
 const element = document.createElement('div');
 document.body.appendChild(element);
 
-ReactDOM.render(<AppRouter />, element);
+ReactDOM.render(
+  <Provider store={store}>
+    <AppRouter />
+  </Provider>, 
+  element
+);
 
 module.hot.accept();

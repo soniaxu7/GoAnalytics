@@ -1,11 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
 import { Header, Menu, Page, Upload } from './components/index';
+import { connect } from 'react-redux'
 
-import langFile from '../data/data_list.json';
-
-function AppRouter() {
-  const lists = JSON.parse(langFile).data;
+const AppRouter = ({ lists }) => {
   return (
     <Router>
       <div className="main">
@@ -23,4 +21,11 @@ function AppRouter() {
   );
 }
 
-export default AppRouter;
+const mapStateToProps = state => ({
+  lists: state.lists
+})
+
+export default connect(
+  mapStateToProps
+)(AppRouter)
+

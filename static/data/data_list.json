@@ -1,3 +1,7 @@
 {
-  "data": ["Hello_world", "asdfsdf"]
+  "data": [{
+    "name": "Hello_world"
+  }, {
+    "name": "asdfsdf"
+  }]
 }

@@ -2,19 +2,21 @@ import React from 'react';
 import { Button, Form, Row, Col } from 'react-bootstrap';
 import request from '../../../request';
 
+import { connect } from 'react-redux'
+import { addDataset } from '../../actions'
+
 class Upload extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.upload_dataset = this.upload_dataset.bind(this);
+  }
+
   upload_dataset() {
-    // const name = document.getElementById('dataset-name').value;
-    // const initiative = document.getElementById('dataset-initiative').files[0];
-    // const regulation = document.getElementById('dataset-regulation').files[0];
-    // const society = document.getElementById('dataset-society').files[0];
-
-    // const data = {
-      // name,
-      // initiative,
-    // }
-
     request.upload_dataset();
+
+    const name = document.getElementById('dataset-name').value;
+    this.props.dispatch(addDataset({ name }));
   }
 
   render() {
@@ -49,4 +51,4 @@ class Upload extends React.Component {
   }
 }
 
-export default Upload;
+export default connect()(Upload)
