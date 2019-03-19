@@ -11,9 +11,19 @@ def get_relations_helper(name):
     join = pd.merge(init, regu, on='Year')
     join = pd.merge(join, society, on='Year')
 
-    corr = join.corr().abs().unstack().sort_values().drop_duplicates()
-    data = json.loads(corr.to_json(orient='split'))
+    # remove column 'Year'
+    columns = list(join.columns)
+    columns.remove('Year')
+    merged = join[columns].copy()
 
+    # look into merged tables
+    # merged.to_csv('./dataset/merged_Hello_world.csv', sep='\t', encoding='utf-8')
+    # print('--------', merged[merged.corr().notnull()])
+
+
+    corr = merged.corr().abs().unstack().sort_values().drop_duplicates()
+
+    data = json.loads(corr.to_json(orient='split'))
     corr_data = []
     n = len(data['index'])
 

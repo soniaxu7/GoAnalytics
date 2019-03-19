@@ -17,12 +17,14 @@ class Page extends React.Component {
   }
 
   update_relations() {
-    request.get_relations(this.state.name).then((res) => {
-      this.setState({
-        loading: false,
-        data: res
+    setTimeout(() => {
+      request.get_relations(this.state.name).then((res) => {
+        this.setState({
+          loading: false,
+          data: res
+        });
       });
-    });
+    }, 500);
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
@@ -38,8 +40,13 @@ class Page extends React.Component {
     }
   }
 
+  getCorrelation(str) {
+    return String(Number(str).toFixed(4)*100).substring(0, 5) + ' %';
+  }
+
   render() {
-    const {data, name, loading} = this.state; 
+    let {data, name, loading} = this.state; 
+    data = data.filter((item) => item.correlation != 'None');
 
     return (
       <div>
@@ -73,37 +80,37 @@ class Page extends React.Component {
         }
         {
           loading ?
-            <div style={{height: '120px'}}>
-              <div className="icon-loading" style={{margin: '20px auto'}} ></div>
+            <div style={{height: '300px'}}>
+              <div className="icon-loading" style={{margin: '220px auto'}} ></div>
             </div> :
-            <Table striped bordered hover>
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Col 1</th>
-                <th>Col 2</th>
-                <th>Relations</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.map((item, index) => (
-                <tr key={index}>
-                  <td>
-                    {index + 1}
-                  </td>
-                  <td>
-                    {item.col_1}
-                  </td>
-                  <td>
-                    {item.col_2}
-                  </td>
-                  <td>
-                    {item.correlation}
-                  </td>
+            <Table striped bordered hover style={{marginTop: '20px'}} >
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Col 1</th>
+                  <th>Col 2</th>
+                  <th>Relations</th>
                 </tr>
-              ))}
-            </tbody>
-          </Table>
+              </thead>
+              <tbody>
+                {data.map((item, index) => (
+                  <tr key={index}>
+                    <td>
+                      {index + 1}
+                    </td>
+                    <td>
+                      {item.col_1}
+                    </td>
+                    <td>
+                      {item.col_2}
+                    </td>
+                    <td>
+                      {this.getCorrelation(item.correlation)}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
         }
       </div>
     );

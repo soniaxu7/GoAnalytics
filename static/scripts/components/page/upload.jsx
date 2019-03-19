@@ -13,10 +13,17 @@ class Upload extends React.Component {
   }
 
   upload_dataset() {
-    request.upload_dataset();
+    var form = document.getElementById('form-upload');
+    var formData = new FormData(form);
 
-    const name = document.getElementById('dataset-name').value;
-    this.props.dispatch(addDataset({ name }));
+    request.upload_dataset(formData).then((res) => {
+
+      const name = document.getElementById('dataset-name').value;
+      this.props.dispatch(addDataset({ name }));
+
+      // React-router redirect
+      this.props.history.push('/p/' + name);
+    });
   }
 
   render() {
