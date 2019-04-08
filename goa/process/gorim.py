@@ -8,16 +8,17 @@ def get_relations_helper(name):
     regu = pd.read_csv(UPLOAD_FOLDER + name + '_regulation.csv')
     society = pd.read_csv(UPLOAD_FOLDER + name + '_society.csv')
 
-    join = pd.merge(init, regu, on='Year')
-    join = pd.merge(join, society, on='Year')
+    join = pd.merge(init, regu, on='Year', how='outer')
+    join = pd.merge(join, society, on='Year', how='outer')
+
+    # look into merged tables
+    join.to_csv('./dataset/merged_Hello_world.csv', sep='\t', encoding='utf-8')
 
     # remove column 'Year'
     columns = list(join.columns)
     columns.remove('Year')
     merged = join[columns].copy()
 
-    # look into merged tables
-    # merged.to_csv('./dataset/merged_Hello_world.csv', sep='\t', encoding='utf-8')
     # print('--------', merged[merged.corr().notnull()])
 
 

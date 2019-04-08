@@ -9,8 +9,11 @@ class Menu extends React.Component {
 
     return (
       <div className="menu">
+        <Link to="/viz">
+          <Button size="sm">Visualization</Button>
+        </Link>
         <Link to="/upload">
-          <Button size="sm" onClick={this.onUpload}>Upload Dataset</Button>
+          <Button size="sm">Upload Dataset</Button>
         </Link>
         <Nav defaultActiveKey="/home" className="flex-column">
           {items.map((item) => (

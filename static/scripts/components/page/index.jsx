@@ -2,6 +2,11 @@ import React from 'react';
 import { Button, Container, Row, Col, Table } from 'react-bootstrap';
 import request from '../../../request';
 
+
+import Correlation from './correlation';
+import Aggregation from './aggregation';
+import Trend from './trend';
+
 class Page extends React.Component {
   constructor(props) {
     super(props);
@@ -10,7 +15,8 @@ class Page extends React.Component {
     this.state = {
       loading: true,
       data: [],
-      name
+      name,
+      page: 'aggregation'
     };
 
     this.update_relations(name);
@@ -40,13 +46,31 @@ class Page extends React.Component {
     }
   }
 
-  getCorrelation(str) {
-    return String(Number(str).toFixed(4)*100).substring(0, 5) + ' %';
+  onClickPage(page) {
+    this.setState({
+      page
+    });
+  }
+
+  getPage() {
+    let {data, name, loading, page} = this.state; 
+    data = data.filter((item) => item.correlation != 'None');
+
+    switch(page) {
+      case 'aggregation':
+        return (<Aggregation />);
+      case 'correlation':
+        return (<Correlation data={data} />);
+      case 'trend':
+        return (<Trend />);
+      default:
+        return (<div>defaultpage</div>);
+    }
+
   }
 
   render() {
     let {data, name, loading} = this.state; 
-    data = data.filter((item) => item.correlation != 'None');
 
     return (
       <div>
@@ -74,43 +98,17 @@ class Page extends React.Component {
             <Col sm="4">Year</Col>
           </Row>
         </Container>
-        {// <a href="/api/get_csv">
-        //   <Button size="sm">Download</Button>
-        // </a>
-        }
+        <div>
+          <Button size="sm" onClick={this.onClickPage.bind(this, 'aggregation')}>Aggregation</Button>
+          <Button size="sm" onClick={this.onClickPage.bind(this, 'trend')}>Trend</Button>
+          <Button size="sm" onClick={this.onClickPage.bind(this, 'correlation')}>Correlation</Button>
+        </div>
         {
           loading ?
             <div style={{height: '300px'}}>
               <div className="icon-loading" style={{margin: '220px auto'}} ></div>
             </div> :
-            <Table striped bordered hover style={{marginTop: '20px'}} >
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Col 1</th>
-                  <th>Col 2</th>
-                  <th>Relations</th>
-                </tr>
-              </thead>
-              <tbody>
-                {data.map((item, index) => (
-                  <tr key={index}>
-                    <td>
-                      {index + 1}
-                    </td>
-                    <td>
-                      {item.col_1}
-                    </td>
-                    <td>
-                      {item.col_2}
-                    </td>
-                    <td>
-                      {this.getCorrelation(item.correlation)}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
+            this.getPage()
         }
       </div>
     );
