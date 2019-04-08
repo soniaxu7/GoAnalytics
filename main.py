@@ -2,6 +2,7 @@ import json
 import os
 import csv
 from flask import Flask, render_template, request, Response
+import pandas as pd
 
 from goa.process.gorim import get_relations_helper
 
@@ -43,6 +44,56 @@ def upload_dataset():
     ret = json.dumps(test)
 
     return ret
+
+@app.route('/api/get_column_names', methods=['GET'])
+def get_column_names():
+    name = request.args.get('name')
+
+    initiative = pd.read_csv('./dataset/' + name + '_initiative.csv')
+    initiative_columns = initiative.columns.tolist()
+    regulation = pd.read_csv('./dataset/' + name + '_regulation.csv')
+    regulation_columns = regulation.columns.tolist()
+    society = pd.read_csv('./dataset/' + name + '_society.csv')
+    society_columns = society.columns.tolist()
+
+    data = {
+        'name': name,
+        'initiative_columns': initiative_columns,
+        'regulation_columns': regulation_columns,
+        'society_columns': society_columns
+    }
+    ret = json.dumps(data)
+
+    return ret
+
+
+@app.route('/api/get_column_data', methods=['GET', 'POST'])
+def get_column_data():
+    # space %20
+    # name = request.args.get('name')
+    name = 'Hello_world'
+
+    # initiative_columns = request.data.get('initiative')
+    # regulation_columns = request.data.get('regulation')
+    # society_columns = request.data.get('society')
+
+    initiative = pd.read_csv('./dataset/' + name + '_initiative.csv')
+    data_by_year = []
+    for year in initiative['Year'].tolist():
+        data_by_year.append({'year': year})
+
+    for col in ['Regulatory Initiative (A)']:
+        col_data = initiative[col].tolist()
+        for i, row in enumerate(data_by_year):
+            row['Initiative: ' + col] = col_data[i]
+
+    # data = {
+    #     'name': name
+    # }
+    ret = json.dumps(data_by_year)
+
+    return ret
+
 
 @app.route('/api/get_csv', methods=['GET'])
 def get_csv():

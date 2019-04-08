@@ -34,11 +34,6 @@ const request = {
       method: 'POST',
       body: formData
     });
-
-    // var request = new XMLHttpRequest();
-    // request.open("POST","/api/upload_dataset", true);
-
-    // request.send(formData);
   }, 
 
   get_relations(name) {
@@ -51,6 +46,16 @@ const request = {
     };
     
     return rp(options);
+  },
+
+  getColumnNames(name) {
+    return fetch('/api/get_column_names?name=' + name, {
+      method: 'GET',
+    }).then(res => res.json());
+  },
+
+  getColumnData(name, data) {
+
   }
 };
 
