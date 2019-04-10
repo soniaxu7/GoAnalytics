@@ -16,7 +16,7 @@ class Page extends React.Component {
       loading: true,
       data: [],
       name,
-      page: 'trend'
+      page: 'aggregation'
     };
 
     this.update_relations(name);
