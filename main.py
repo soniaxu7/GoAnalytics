@@ -71,25 +71,42 @@ def get_column_names():
 def get_column_data():
     # space %20
     # name = request.args.get('name')
-    name = 'Hello_world'
+    # name = 'Hello_world'
 
-    # initiative_columns = request.data.get('initiative')
-    # regulation_columns = request.data.get('regulation')
-    # society_columns = request.data.get('society')
+    data = json.loads(request.data)
+    name = data['name']
+    initiative_columns = data['initiative']
+    regulation_columns = data['regulation']
+    society_columns = data['society']
+
+    print('---------', data)
 
     initiative = pd.read_csv('./dataset/' + name + '_initiative.csv')
     data_by_year = []
     for year in initiative['Year'].tolist():
         data_by_year.append({'year': year})
 
-    for col in ['Regulatory Initiative (A)']:
-        col_data = initiative[col].tolist()
-        for i, row in enumerate(data_by_year):
-            row['Initiative: ' + col] = col_data[i]
+    if len(initiative_columns) > 0:
+        for col in initiative_columns:
+            col_data = initiative[col].tolist()
+            for i, row in enumerate(data_by_year):
+                row['Initiative: ' + col] = col_data[i]
 
-    # data = {
-    #     'name': name
-    # }
+    if len(regulation_columns) > 0:
+        regulation = pd.read_csv('./dataset/' + name + '_regulation.csv')
+        for col in regulation_columns:
+            col_data = regulation[col].tolist()
+            for i, row in enumerate(data_by_year):
+                row['Regulation: ' + col] = col_data[i]
+
+
+    if len(society_columns) > 0:
+        society = pd.read_csv('./dataset/' + name + '_society.csv')
+        for col in society_columns:
+            col_data = society[col].tolist()
+            for i, row in enumerate(data_by_year):
+                row['Society: ' + col] = col_data[i]
+
     ret = json.dumps(data_by_year)
 
     return ret

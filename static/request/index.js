@@ -54,8 +54,15 @@ const request = {
     }).then(res => res.json());
   },
 
-  getColumnData(name, data) {
-
+  getColumnData(data) {
+    return fetch('/api/get_column_data', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    }).then(res => res.json());
   }
 };
 
