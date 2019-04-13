@@ -10,7 +10,7 @@ class Menu extends React.Component {
     return (
       <div className="menu">
         <Link to="/viz">
-          <Button size="sm">Visualization</Button>
+          <Button size="sm">Map</Button>
         </Link>
         <Link to="/upload">
           <Button size="sm">Upload Dataset</Button>

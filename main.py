@@ -112,15 +112,15 @@ def get_column_data():
     return ret
 
 
-@app.route('/api/get_csv', methods=['GET'])
-def get_csv():
-    with open('./dataset/Hello_world_initiative.csv') as csvfile:
-        file = csv.reader(csvfile)
-        return Response(
-            file,
-            mimetype="text/csv",
-            headers={"Content-disposition":
-                     "attachment; filename=Hello_world_initiative.csv"})
+# @app.route('/api/get_csv', methods=['GET'])
+# def get_csv():
+#     with open('./dataset/Hello_world_initiative.csv') as csvfile:
+#         file = csv.reader(csvfile)
+#         return Response(
+#             file,
+#             mimetype="text/csv",
+#             headers={"Content-disposition":
+#                      "attachment; filename=Hello_world_initiative.csv"})
 
 
 if __name__ == '__main__':

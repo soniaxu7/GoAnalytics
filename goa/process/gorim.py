@@ -3,6 +3,8 @@ import json
 
 UPLOAD_FOLDER = './dataset/'
 
+# NaN issue: https://stackoverflow.com/questions/51995703/python-nan-values-in-df-corr
+
 def get_relations_helper(name):
     init = pd.read_csv(UPLOAD_FOLDER + name + '_initiative.csv')
     regu = pd.read_csv(UPLOAD_FOLDER + name + '_regulation.csv')
@@ -12,7 +14,7 @@ def get_relations_helper(name):
     join = pd.merge(join, society, on='Year', how='outer')
 
     # look into merged tables
-    join.to_csv('./dataset/merged_Hello_world.csv', sep='\t', encoding='utf-8')
+    # join.to_csv('./dataset/merged_Hello_world.csv', sep='\t', encoding='utf-8')
 
     # remove column 'Year'
     columns = list(join.columns)
@@ -20,7 +22,6 @@ def get_relations_helper(name):
     merged = join[columns].copy()
 
     # print('--------', merged[merged.corr().notnull()])
-
 
     corr = merged.corr().abs().unstack().sort_values().drop_duplicates()
 

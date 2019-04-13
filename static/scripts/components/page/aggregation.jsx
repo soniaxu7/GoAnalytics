@@ -39,7 +39,9 @@ class Aggregation extends React.Component {
   }
 
   getColumnNames() {
-    request.getColumnNames('Hello_world').then((res) => {
+    const name = this.props.name;
+
+    request.getColumnNames(name).then((res) => {
       this.setState({
         name: res.name,
         initiative: res.initiative_columns,

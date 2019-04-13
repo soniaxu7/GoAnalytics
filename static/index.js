@@ -16,8 +16,10 @@ document.body.appendChild(element);
 ReactDOM.render(
   <Provider store={store}>
     <AppRouter />
-  </Provider>, 
+  </Provider>,
   element
 );
 
 module.hot.accept();
+
+

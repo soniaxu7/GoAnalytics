@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
-import { Header, Menu, Page, Upload, Viz } from './components/index';
+import { Header, Menu, Page, Upload, Viz, Map, MapTest } from './components/index';
 import { connect } from 'react-redux'
 
 const AppRouter = ({ lists }) => {
@@ -13,7 +13,8 @@ const AppRouter = ({ lists }) => {
           <div className="main-right">
             <Route exact path="/" render={() => (<Redirect to="/upload"/>)} />
             <Route path="/upload" component={Upload} />
-            <Route path="/viz" component={Viz} />
+            <Route path="/viz" component={MapTest} />
+            <Route path="/map" component={MapTest} />
             <Route path="/p/:name" component={Page} />
           </div>
         </div>

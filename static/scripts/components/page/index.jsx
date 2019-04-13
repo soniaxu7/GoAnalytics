@@ -16,7 +16,7 @@ class Page extends React.Component {
       loading: true,
       data: [],
       name,
-      page: 'aggregation'
+      page: 'correlation'
     };
 
     this.update_relations(name);
@@ -58,11 +58,11 @@ class Page extends React.Component {
 
     switch(page) {
       case 'aggregation':
-        return (<Aggregation />);
+        return (<Aggregation name={name} />);
       case 'correlation':
         return (<Correlation data={data} />);
       case 'trend':
-        return (<Trend />);
+        return (<Trend name={name} />);
       default:
         return (<div>defaultpage</div>);
     }
@@ -74,6 +74,7 @@ class Page extends React.Component {
 
     return (
       <div>
+      {/*
         <Container>
           <Row>
             <Col sm="2">Initiative</Col>
@@ -98,7 +99,8 @@ class Page extends React.Component {
             <Col sm="4">Year</Col>
           </Row>
         </Container>
-        <div>
+      */}
+        <div style={{marginBottom: '12px'}}>
           <Button size="sm" onClick={this.onClickPage.bind(this, 'aggregation')}>Aggregation</Button>
           <Button size="sm" onClick={this.onClickPage.bind(this, 'trend')}>Trend</Button>
           <Button size="sm" onClick={this.onClickPage.bind(this, 'correlation')}>Correlation</Button>

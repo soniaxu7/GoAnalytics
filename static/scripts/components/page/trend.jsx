@@ -60,7 +60,9 @@ class Trend extends React.Component {
   }
 
   getColumnNames() {
-    request.getColumnNames('Hello_world').then((res) => {
+    const name = this.props.name;
+
+    request.getColumnNames(name).then((res) => {
       this.setState({
         name: res.name,
         initiative: res.initiative_columns,
@@ -151,8 +153,6 @@ class Trend extends React.Component {
     data['regulation'] = selected_regulation.slice(0);
     data['society'] = selected_society.slice(0);
 
-    console.log(data)
-
     request.getColumnData(data).then((res) => {
       this.setState({
         loadingChart: false,
@@ -160,8 +160,6 @@ class Trend extends React.Component {
 
       const chartData = this.generateChartData(res);
       this.drawChart(chartData);
-
-      console.log(res);
     });
 
   }
