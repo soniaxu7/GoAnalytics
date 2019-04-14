@@ -54,6 +54,18 @@ const request = {
     }).then(res => res.json());
   },
 
+  getYears(name) {
+    return fetch('/api/get_years?name=' + name, {
+      method: 'GET',
+    }).then(res => res.json());
+  },
+
+  getYearData({name, type, year}) {
+    return fetch('/api/get_year_data?name=' + name + '&type=' + type + '&year=' + year, {
+      method: 'GET',
+    }).then(res => res.json());
+  },
+
   getColumnData(data) {
     return fetch('/api/get_column_data', {
       method: 'POST',

@@ -1,7 +1,9 @@
 import React from 'react';
-import * as d3 from "d3";
-import {scaleLinear} from "d3-scale";
 import { connect } from 'react-redux';
+import { ButtonToolbar, Button, Container, Row, Col, Table, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
+
+import request from '../../../request';
+
 import Highcharts from 'highcharts'
 import HC_map from 'highcharts/modules/map'
 import HighchartsReact from 'highcharts-react-official'
@@ -13,22 +15,7 @@ HC_map(Highcharts)
 // https://jsfiddle.net/gh/get/library/pure/highslide-software/highcharts.com/tree/master/samples/mapdata/countries/ca/ca-all
 // canada map data: https://code.highcharts.com/mapdata/countries/ca/ca-all.js
 
-class Map extends React.Component {
-  constructor(props) {
-    super(props);
-
-  }
-
-  componentDidMount() {
-    this.init();
-  }
-
-  init() {
-  }
-
-
-  render() {
-    const data =  [
+const data =  [
     ['ca-5682', 0],
     ['ca-bc', 1],
     ['ca-nu', 2],
@@ -45,9 +32,13 @@ class Map extends React.Component {
     ['ca-yt', 13]
 ];
 
+class Map extends React.Component {
+  constructor(props) {
+    super(props);
+
     const mapOptions = {
       title: {
-        text: ''
+        text: 'Canada'
       },
       colorAxis: {
         min: 0,
@@ -75,14 +66,161 @@ class Map extends React.Component {
         }]
     }
 
+    this.state = {
+      name: this.props.name,
+      years: [],
+      loading: true,
+      options: mapOptions,
+      initiative: [],
+      regulation: [],
+      society: [],
+    };
+
+    this.handleInitiative = this.handleInitiative.bind(this);
+    this.handleRegulation = this.handleRegulation.bind(this);
+    this.handleSociety = this.handleSociety.bind(this);
+    this.onConfirm = this.onConfirm.bind(this);
+  }
+
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    this.getYears();
+  }
+
+  componentDidMount() {
+    this.getYears();
+  }
+
+  handleInitiative(value, event) {
+    this.setState({
+      initiative: value,
+    });
+  }
+
+  handleRegulation(value, event) {
+    this.setState({
+      regulation: value,
+    });
+  }
+
+  handleSociety(value, event) {
+    this.setState({
+      society: value,
+    });
+  }
+
+  getYears(data) {
+    const name = this.props.name;
+
+    request.getYears(name).then((res) => {
+      this.setState({
+        name,
+        years: res,
+      });
+    });
+  }
+
+  getYearData(data) {
+    request.getYearData(data).then((res) => {
+      let options = Object.assign({}, this.state.options);
+      options.series[0].data = res.data;
+
+      this.setState({
+        options,
+        loading: false,
+      });
+    });
+  }
+
+  onConfirm() {
+    this.setState({
+      loading: true,
+    });
+
+    const name = this.props.name;
+    let year, type;
+
+    const {initiative, regulation, society} = this.state;
+
+    if (initiative.length > 0) {
+      year = initiative[0];
+      type = 'initiative';
+    } else if (regulation.length > 0) {
+      year = regulation[0];
+      type = 'regulation';
+    } else if (society.length > 0) {
+      year = society[0];
+      type = 'society';
+    }
+
+    this.getYearData({name, year, type});
+  }
+
+  render() {
+    const {years, loading, options} = this.state;
+
     return (
-        <div style={{width: '1000px', height: '800px'}}>
-            <HighchartsReact
-              highcharts={Highcharts}
-              constructorType={'mapChart'}
-              options={mapOptions}
-            />
+      <div>
+        <div>
+          <Row style={{marginBottom: '6px'}}>
+            <Col sm="1">Initiative:</Col>
+            <Col sm="10">
+              <ToggleButtonGroup
+                type="checkbox"
+                value={this.state.initiative}
+                onChange={this.handleInitiative}
+              >
+                {years.map((year) => 
+                  <ToggleButton variant="outline-dark" size="sm" value={year} key={year}>{year}</ToggleButton>
+                )}
+              </ToggleButtonGroup>
+            </Col>
+          </Row>
+          <Row style={{marginBottom: '6px'}}>
+            <Col sm="1">Regulation:</Col>
+            <Col sm="10">
+              <ToggleButtonGroup
+                type="checkbox"
+                value={this.state.regulation}
+                onChange={this.handleRegulation}
+              >
+                {years.map((year) => 
+                  <ToggleButton variant="outline-dark" size="sm" value={year} key={year}>{year}</ToggleButton>
+                )}
+              </ToggleButtonGroup>
+            </Col>
+          </Row>
+          <Row style={{marginBottom: '6px'}}>
+            <Col sm="1">Society:</Col>
+            <Col sm="10">
+              <ToggleButtonGroup
+                type="checkbox"
+                value={this.state.society}
+                onChange={this.handleSociety}
+              >
+                {years.map((year) => 
+                  <ToggleButton variant="outline-dark" size="sm" value={year} key={year}>{year}</ToggleButton>
+                )}
+              </ToggleButtonGroup>
+            </Col>
+          </Row>
+          <div>
+            <Button size="sm" onClick={this.onConfirm}>Confirm</Button>
+          </div>
         </div>
+        {
+          loading ?
+            null :
+            <div style={{width: '1000px', height: '800px'}}>
+              <HighchartsReact
+                highcharts={Highcharts}
+                constructorType={'mapChart'}
+                options={options}
+                allowChartUpdate={true}
+                updateArgs={[true, true, true]}
+              />
+            </div>
+        }
+      </div>
     );
   }
 }

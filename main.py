@@ -3,6 +3,7 @@ import os
 import csv
 from flask import Flask, render_template, request, Response
 import pandas as pd
+import numpy
 
 from goa.process.gorim import get_relations_helper
 
@@ -108,6 +109,44 @@ def get_column_data():
                 row['Society: ' + col] = col_data[i]
 
     ret = json.dumps(data_by_year)
+
+    return ret
+
+
+@app.route('/api/get_years', methods=['GET'])
+def get_years():
+    name = request.args.get('name')
+
+    initiative = pd.read_csv('./dataset/' + name + '_initiative.csv')
+    years = initiative['Year'].tolist()
+
+    ret = json.dumps(years)
+
+    return ret
+
+
+@app.route('/api/get_year_data', methods=['GET'])
+def get_year_data():
+    name = request.args.get('name')
+    type = request.args.get('type')
+    year = int(request.args.get('year'))
+
+    file = pd.read_csv('./dataset/' + name + '_' + type + '.csv')
+    file.set_index('Year', inplace=True)
+
+    print(file.loc[year, 'ca-bc'])
+
+    ca_states = ['ca-5682', 'ca-bc', 'ca-nu',
+     'ca-nt', 'ca-ab', 'ca-nl', 'ca-sk', 'ca-mb',
+     'ca-qc', 'ca-on', 'ca-nb', 'ca-ns', 'ca-pe',
+     'ca-yt']
+
+    data = []
+    for state in ca_states:
+        num = int(file.loc[year, state])
+        data.append([state, num])
+
+    ret = json.dumps({'data': data})
 
     return ret
 

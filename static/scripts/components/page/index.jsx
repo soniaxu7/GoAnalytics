@@ -6,6 +6,7 @@ import request from '../../../request';
 import Correlation from './correlation';
 import Aggregation from './aggregation';
 import Trend from './trend';
+import Map from './map';
 
 class Page extends React.Component {
   constructor(props) {
@@ -16,7 +17,7 @@ class Page extends React.Component {
       loading: true,
       data: [],
       name,
-      page: 'correlation'
+      page: 'map'
     };
 
     this.update_relations(name);
@@ -63,6 +64,8 @@ class Page extends React.Component {
         return (<Correlation data={data} />);
       case 'trend':
         return (<Trend name={name} />);
+      case 'map':
+        return (<Map name={name} />);
       default:
         return (<div>defaultpage</div>);
     }
@@ -104,6 +107,7 @@ class Page extends React.Component {
           <Button size="sm" onClick={this.onClickPage.bind(this, 'aggregation')}>Aggregation</Button>
           <Button size="sm" onClick={this.onClickPage.bind(this, 'trend')}>Trend</Button>
           <Button size="sm" onClick={this.onClickPage.bind(this, 'correlation')}>Correlation</Button>
+          <Button size="sm" onClick={this.onClickPage.bind(this, 'map')}>Map</Button>
         </div>
         {
           loading ?
