@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Container, Row, Col, Table } from 'react-bootstrap';
+import { Button, Container, Row, Col, Table, Tabs, Tab } from 'react-bootstrap';
 import request from '../../../request';
 
 
@@ -72,8 +72,14 @@ class Page extends React.Component {
 
   }
 
+  onClickPageTest(page) {
+    this.setState({
+      page
+    });
+  }
+
   render() {
-    let {data, name, loading} = this.state; 
+    let {data, name, loading, page} = this.state; 
 
     return (
       <div>
@@ -103,11 +109,13 @@ class Page extends React.Component {
           </Row>
         </Container>
       */}
-        <div style={{marginBottom: '12px'}}>
-          <Button size="sm" onClick={this.onClickPage.bind(this, 'aggregation')}>Aggregation</Button>
-          <Button size="sm" onClick={this.onClickPage.bind(this, 'trend')}>Trend</Button>
-          <Button size="sm" onClick={this.onClickPage.bind(this, 'correlation')}>Correlation</Button>
-          <Button size="sm" onClick={this.onClickPage.bind(this, 'map')}>Map</Button>
+        <div style={{marginBottom: '16px'}}>
+          <Tabs defaultActiveKey={page} id="uncontrolled-tab-example" onSelect={this.onClickPageTest.bind(this)}>
+            <Tab eventKey="aggregation" title="Aggregation" />
+            <Tab eventKey="trend" title="Trend" />
+            <Tab eventKey="correlation" title="Correlation" />
+            <Tab eventKey="map" title="Map" />
+          </Tabs>
         </div>
         {
           loading ?

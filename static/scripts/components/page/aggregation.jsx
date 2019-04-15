@@ -1,6 +1,5 @@
 import React from 'react';
-import { ToggleButtonGroup, ToggleButton, 
-  ButtonToolbar, Button, Container, Row, Col, Table } from 'react-bootstrap';
+import { ToggleButtonGroup, ToggleButton, ButtonToolbar, Button, Container, Row, Col, Table } from 'react-bootstrap';
 import request from '../../../request';
 import Chart from 'chart.js';
 
