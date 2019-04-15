@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { ButtonToolbar, Button, Container, Row, Col, Table, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
+import { ButtonToolbar, Button, Container, Row, Col, Table, ToggleButtonGroup, ToggleButton, ButtonGroup } from 'react-bootstrap';
 
 import request from '../../../request';
 
@@ -69,17 +69,19 @@ class Map extends React.Component {
     this.state = {
       name: this.props.name,
       years: [],
+      type: undefined,
+      year: undefined,
       loading: true,
       options: mapOptions,
-      initiative: [],
-      regulation: [],
-      society: [],
+      // initiative: [],
+      // regulation: [],
+      // society: [],
     };
 
-    this.handleInitiative = this.handleInitiative.bind(this);
-    this.handleRegulation = this.handleRegulation.bind(this);
-    this.handleSociety = this.handleSociety.bind(this);
-    this.onConfirm = this.onConfirm.bind(this);
+    // this.handleInitiative = this.handleInitiative.bind(this);
+    // this.handleRegulation = this.handleRegulation.bind(this);
+    // this.handleSociety = this.handleSociety.bind(this);
+    // this.onConfirm = this.onConfirm.bind(this);
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
@@ -90,23 +92,23 @@ class Map extends React.Component {
     this.getYears();
   }
 
-  handleInitiative(value, event) {
-    this.setState({
-      initiative: value,
-    });
-  }
+  // handleInitiative(value, event) {
+  //   this.setState({
+  //     initiative: value,
+  //   });
+  // }
 
-  handleRegulation(value, event) {
-    this.setState({
-      regulation: value,
-    });
-  }
+  // handleRegulation(value, event) {
+  //   this.setState({
+  //     regulation: value,
+  //   });
+  // }
 
-  handleSociety(value, event) {
-    this.setState({
-      society: value,
-    });
-  }
+  // handleSociety(value, event) {
+  //   this.setState({
+  //     society: value,
+  //   });
+  // }
 
   getYears(data) {
     const name = this.props.name;
@@ -131,32 +133,20 @@ class Map extends React.Component {
     });
   }
 
-  onConfirm() {
+  handleYear(type, year) {
     this.setState({
-      loading: true,
+      type,
+      year,
+      loading: true
     });
 
     const name = this.props.name;
-    let year, type;
-
-    const {initiative, regulation, society} = this.state;
-
-    if (initiative.length > 0) {
-      year = initiative[0];
-      type = 'initiative';
-    } else if (regulation.length > 0) {
-      year = regulation[0];
-      type = 'regulation';
-    } else if (society.length > 0) {
-      year = society[0];
-      type = 'society';
-    }
-
     this.getYearData({name, year, type});
   }
 
   render() {
-    const {years, loading, options} = this.state;
+    const {years, loading, options, type, year} = this.state;
+    const currentYear = year;
 
     return (
       <div>
@@ -164,18 +154,52 @@ class Map extends React.Component {
           <Row style={{marginBottom: '6px'}}>
             <Col sm="1">Initiative:</Col>
             <Col sm="10">
-              <ToggleButtonGroup
-                type="checkbox"
-                value={this.state.initiative}
-                onChange={this.handleInitiative}
-              >
-                {years.map((year) => 
-                  <ToggleButton variant="outline-dark" size="sm" value={year} key={year}>{year}</ToggleButton>
-                )}
-              </ToggleButtonGroup>
+              <ButtonGroup aria-label="Basic example">
+                {years.map((year) => {
+                  const isCurrent = type == 'initiative' && currentYear == year;
+
+                  return (
+                    <Button size="sm"
+                      variant={isCurrent ? "dark" : "outline-dark"}
+                      key={year} onClick={this.handleYear.bind(this, 'initiative', year)}>{year}</Button>
+                  );
+                })}
+              </ButtonGroup>
             </Col>
           </Row>
           <Row style={{marginBottom: '6px'}}>
+            <Col sm="1">Initiative:</Col>
+            <Col sm="10">
+              <ButtonGroup aria-label="Basic example">
+                {years.map((year) => {
+                  const isCurrent = type == 'regulation' && currentYear == year;
+
+                  return (
+                    <Button size="sm"
+                      variant={isCurrent ? "dark" : "outline-dark"}
+                      key={year} onClick={this.handleYear.bind(this, 'regulation', year)}>{year}</Button>
+                  );
+                })}
+              </ButtonGroup>
+            </Col>
+          </Row>
+          <Row style={{marginBottom: '6px'}}>
+            <Col sm="1">Initiative:</Col>
+            <Col sm="10">
+              <ButtonGroup aria-label="Basic example">
+                {years.map((year) => {
+                  const isCurrent = type == 'society' && currentYear == year;
+
+                  return (
+                    <Button size="sm"
+                      variant={isCurrent ? "dark" : "outline-dark"}
+                      key={year} onClick={this.handleYear.bind(this, 'society', year)}>{year}</Button>
+                  );
+                })}
+              </ButtonGroup>
+            </Col>
+          </Row>
+          {/*<Row style={{marginBottom: '6px'}}>
             <Col sm="1">Regulation:</Col>
             <Col sm="10">
               <ToggleButtonGroup
@@ -206,6 +230,7 @@ class Map extends React.Component {
           <div>
             <Button size="sm" onClick={this.onConfirm}>Confirm</Button>
           </div>
+        */}
         </div>
         {
           loading ?
