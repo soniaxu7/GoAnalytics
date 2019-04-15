@@ -73,15 +73,8 @@ class Map extends React.Component {
       year: undefined,
       loading: true,
       options: mapOptions,
-      // initiative: [],
-      // regulation: [],
-      // society: [],
     };
 
-    // this.handleInitiative = this.handleInitiative.bind(this);
-    // this.handleRegulation = this.handleRegulation.bind(this);
-    // this.handleSociety = this.handleSociety.bind(this);
-    // this.onConfirm = this.onConfirm.bind(this);
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
@@ -91,24 +84,6 @@ class Map extends React.Component {
   componentDidMount() {
     this.getYears();
   }
-
-  // handleInitiative(value, event) {
-  //   this.setState({
-  //     initiative: value,
-  //   });
-  // }
-
-  // handleRegulation(value, event) {
-  //   this.setState({
-  //     regulation: value,
-  //   });
-  // }
-
-  // handleSociety(value, event) {
-  //   this.setState({
-  //     society: value,
-  //   });
-  // }
 
   getYears(data) {
     const name = this.props.name;
@@ -199,38 +174,6 @@ class Map extends React.Component {
               </ButtonGroup>
             </Col>
           </Row>
-          {/*<Row style={{marginBottom: '6px'}}>
-            <Col sm="1">Regulation:</Col>
-            <Col sm="10">
-              <ToggleButtonGroup
-                type="checkbox"
-                value={this.state.regulation}
-                onChange={this.handleRegulation}
-              >
-                {years.map((year) => 
-                  <ToggleButton variant="outline-dark" size="sm" value={year} key={year}>{year}</ToggleButton>
-                )}
-              </ToggleButtonGroup>
-            </Col>
-          </Row>
-          <Row style={{marginBottom: '6px'}}>
-            <Col sm="1">Society:</Col>
-            <Col sm="10">
-              <ToggleButtonGroup
-                type="checkbox"
-                value={this.state.society}
-                onChange={this.handleSociety}
-              >
-                {years.map((year) => 
-                  <ToggleButton variant="outline-dark" size="sm" value={year} key={year}>{year}</ToggleButton>
-                )}
-              </ToggleButtonGroup>
-            </Col>
-          </Row>
-          <div>
-            <Button size="sm" onClick={this.onConfirm}>Confirm</Button>
-          </div>
-        */}
         </div>
         {
           loading ?
