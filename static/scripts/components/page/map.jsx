@@ -143,7 +143,7 @@ class Map extends React.Component {
             </Col>
           </Row>
           <Row style={{marginBottom: '6px'}}>
-            <Col sm="1">Initiative:</Col>
+            <Col sm="1">Regulation</Col>
             <Col sm="10">
               <ButtonGroup aria-label="Basic example">
                 {years.map((year) => {
@@ -159,7 +159,7 @@ class Map extends React.Component {
             </Col>
           </Row>
           <Row style={{marginBottom: '6px'}}>
-            <Col sm="1">Initiative:</Col>
+            <Col sm="1">Society</Col>
             <Col sm="10">
               <ButtonGroup aria-label="Basic example">
                 {years.map((year) => {

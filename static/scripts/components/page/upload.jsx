@@ -37,7 +37,7 @@ class Upload extends React.Component {
 
   render() {
     return (
-      <div className="form-upload">
+      <div className="form-upload" style={{width: '1124px'}}>
         <Form id="form-upload" encType="multipart/form-data">
           <Form.Group as={Row}>
             <Form.Label column sm="2">Name</Form.Label>
