@@ -137,7 +137,7 @@ class Aggregation extends React.Component {
     return (
       <div>
         <Row style={{marginBottom: '6px'}}>
-          <Col sm="1">Initiative:</Col>
+          <Col style={{minWidth: '150px', maxWidth: '150px'}} sm="1">Initiative:</Col>
           <Col sm="10">
             <ToggleButtonGroup
               type="checkbox"
@@ -145,13 +145,15 @@ class Aggregation extends React.Component {
               onChange={this.handleInitiative}
             >
               {initiative.map((item) => 
-                <ToggleButton variant="outline-dark" size="sm" value={item} key={item}>{item}</ToggleButton>
+                <ToggleButton variant="outline-dark" size="sm" value={item} key={item}>
+                  {item}
+                </ToggleButton>
               )}
             </ToggleButtonGroup>
           </Col>
         </Row>
         <Row style={{marginBottom: '6px'}}>
-          <Col sm="1">Regulation:</Col>
+          <Col style={{minWidth: '150px', maxWidth: '150px'}} sm="1">Regulation:</Col>
           <Col sm="10">
             <ToggleButtonGroup
               type="checkbox"
@@ -159,13 +161,15 @@ class Aggregation extends React.Component {
               onChange={this.handleRegulation}
             >
               {regulation.map((item) => 
-                <ToggleButton variant="outline-dark" size="sm" value={item} key={item}>{item}</ToggleButton>
+                <ToggleButton variant="outline-dark" size="sm" value={item} key={item}>
+                  {item}
+                </ToggleButton>
               )}
             </ToggleButtonGroup>
           </Col>
         </Row>
         <Row style={{marginBottom: '6px'}}>
-          <Col sm="1">Society:</Col>
+          <Col style={{minWidth: '150px', maxWidth: '150px'}} sm="1">Society:</Col>
           <Col sm="10">
             <ToggleButtonGroup
               type="checkbox"
@@ -173,7 +177,9 @@ class Aggregation extends React.Component {
               onChange={this.handleSociety}
             >
               {society.map((item) => 
-                <ToggleButton variant="outline-dark" size="sm" value={item} key={item}>{item}</ToggleButton>
+                <ToggleButton variant="outline-dark" size="sm" value={item} key={item}>
+                  {item}
+                </ToggleButton>
               )}
             </ToggleButtonGroup>
           </Col>

@@ -12,15 +12,16 @@ class Correlation extends React.Component {
   }
   
   render() {
-    const data = this.props.data;
+    const allData = this.props.data;
+    const data = allData.filter((item) => item.col_1.substring(0, 7) != item.col_2.substring(0, 7));
 
     return (
       <Table striped bordered hover style={{marginTop: '20px'}} >
         <thead>
           <tr>
             <th>#</th>
-            <th>Col 1</th>
-            <th>Col 2</th>
+            <th>Name of Index 1</th>
+            <th>Name of Index 2</th>
             <th>Relations</th>
           </tr>
         </thead>
