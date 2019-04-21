@@ -8,7 +8,7 @@ Entry file is **/static/index.js**. In this file, after importing **less(CSS)**,
 In single page application, URL in browser never changes. But this is confusing for users when switching between different pages. Thus we need a virtual router and **React-Router** is used in this project. The entry file of router of this application is **/static/scripts/router.jsx**.
 
 ## Storage
-React can define *Virtual DOM*, also known as *React component*. This allows developers to reuse the components and easy to read and maintain different components. However, when communicating with different components, they do not know what to update if they require data from other components. Here **Redux** is used to manage global data, also known as **container**.
+React can define **Virtual DOM**, also known as **React component**. This allows developers to reuse the components and easy to read and maintain different components. However, when communicating with different components, they do not know what to update if they require data from other components. Here **Redux** is used to manage global data, also known as **container**.
 
 ## Source code
 - **/static/data/data_list.json**: This stores list of name of dataset when first time visiting the page.
