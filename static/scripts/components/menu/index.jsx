@@ -2,10 +2,11 @@ import React from 'react';
 import { Button, Nav } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 
-
 class Menu extends React.Component {
   render() {
     const {items} = this.props;
+
+    // This is to get current url to identify which dataset should be highlited in menu
     const path = window.location.pathname;
 
     return (
@@ -17,7 +18,10 @@ class Menu extends React.Component {
         </div>
         <Nav defaultActiveKey="/home" className="flex-column nav-pills">
           {items.map((item) => {
+            // the url of the current dataset
             const currentPath = `/p/${item.name}`;
+
+            // <Link> is from react-router which manages the router
             return (
               <Nav.Item key={item.name}>
                 <Link className={'nav-link' + (currentPath == path ? ' active' : '')} to={currentPath} key={item.name}>

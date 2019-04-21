@@ -8,29 +8,15 @@ import Highcharts from 'highcharts'
 import HC_map from 'highcharts/modules/map'
 import HighchartsReact from 'highcharts-react-official'
 
-const mapData = require('./ca-all');
+const mapData = require('../../../lib/ca-all.js');
 
 HC_map(Highcharts)
 
-// https://jsfiddle.net/gh/get/library/pure/highslide-software/highcharts.com/tree/master/samples/mapdata/countries/ca/ca-all
-// canada map data: https://code.highcharts.com/mapdata/countries/ca/ca-all.js
-
-const data =  [
-    ['ca-5682', 0],
-    ['ca-bc', 1],
-    ['ca-nu', 2],
-    ['ca-nt', 3],
-    ['ca-ab', 4],
-    ['ca-nl', 5],
-    ['ca-sk', 6],
-    ['ca-mb', 7],
-    ['ca-qc', 8],
-    ['ca-on', 9],
-    ['ca-nb', 10],
-    ['ca-ns', 11],
-    ['ca-pe', 12],
-    ['ca-yt', 13]
-];
+/*
+* Reference:
+* https://jsfiddle.net/gh/get/library/pure/highslide-software/highcharts.com/tree/master/samples/mapdata/countries/ca/ca-all
+* canada map data: https://code.highcharts.com/mapdata/countries/ca/ca-all.js
+*/
 
 class Map extends React.Component {
   constructor(props) {

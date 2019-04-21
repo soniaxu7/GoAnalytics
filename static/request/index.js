@@ -1,51 +1,21 @@
-import rp from 'request-promise';
-
-const GET = {
-  method: 'GET',
-  headers: {
-    'User-Agent': 'Request-Promise'
-  },
-  json: true
-};
-
-const POST = {
-    method: 'POST',
-    headers: {
-      'content-type': 'multipart/form-data',
-    },
-    json: true
-};
-
-function get_GET_options(url) {
-  return Object.assign({}, GET, { url });
-}
-
-function get_POST_options(url, formData) {
-  return Object.assign({}, POST, { url, formData });
-}
+/*
+* Manage all the front end request here.
+* Use "fetch" to apply Promise.
+* Reference: https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API
+*/
 
 const request = {
-  get_dataset() {
-    return '';
-  },
-
-  upload_dataset(formData) {
+  uploadDataset(formData) {
     return fetch('/api/upload_dataset', {
       method: 'POST',
       body: formData
     });
   }, 
 
-  get_relations(name) {
-    let options = {
-        uri: 'http://localhost:5000/api/get_relations?name=' + name,
-        headers: {
-          'User-Agent': 'Request-Promise'
-        },
-        json: true
-    };
-    
-    return rp(options);
+  getRelations(name) {
+    return fetch('/api/get_relations?name=' + name, {
+      method: 'GET',
+    }).then(res => res.json());
   },
 
   getColumnNames(name) {
@@ -66,6 +36,7 @@ const request = {
     }).then(res => res.json());
   },
 
+  // Since it needs to carry too much query data, it is recommended to use POST instead of GET
   getColumnData(data) {
     return fetch('/api/get_column_data', {
       method: 'POST',

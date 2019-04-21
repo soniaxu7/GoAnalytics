@@ -4,7 +4,6 @@ import Page from './page';
 import Upload from './page/upload';
 import Viz from './page/viz';
 import Map from './page/map';
-import MapTest from './page/map_test';
 
 export {
   Header,
@@ -12,6 +11,5 @@ export {
   Page,
   Upload,
   Viz,
-  Map,
-  MapTest
+  Map
 };

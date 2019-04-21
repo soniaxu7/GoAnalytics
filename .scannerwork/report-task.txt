@@ -1,7 +1,0 @@
-organization=soniaxu7-github
-projectKey=soniaxu7_flask
-serverUrl=https://sonarcloud.io
-serverVersion=7.8.0.23279
-dashboardUrl=https://sonarcloud.io/dashboard?id=soniaxu7_flask
-ceTaskId=AWoX1yjRbZ-4oYCt2Amz
-ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AWoX1yjRbZ-4oYCt2Amz

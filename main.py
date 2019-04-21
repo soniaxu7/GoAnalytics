@@ -10,6 +10,7 @@ from goa.process.gorim import get_relations_helper
 # from goa.storage.storage import run_storage
 
 app = Flask(__name__, static_folder='./dist',)
+
 UPLOAD_FOLDER = './dataset'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 

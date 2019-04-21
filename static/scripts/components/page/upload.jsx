@@ -17,7 +17,7 @@ class Upload extends React.Component {
     var form = document.getElementById('form-upload');
     var formData = new FormData(form);
 
-    request.upload_dataset(formData).then((res) => {
+    request.uploadDataset(formData).then((res) => {
 
       const name = document.getElementById('dataset-name').value;
       this.props.dispatch(addDataset({ name }));
