@@ -1,12 +1,12 @@
 ## Dependencies of JavaScript
-*/package.json* file stores all the JavaScript dependencies required in this project
+**/package.json** file stores all the JavaScript dependencies required in this project
 For more detail about package.json, please click (here)[https://docs.npmjs.com/files/package.json].
 
 ### "scripts"
 "scripts" stores all the custom scripts used in this project
 To use the one of the script, run 
 ```
-npm run <your_scrip>
+npm run <your_script>
 ```
 - "start": start webpack server and bundle front end code into one file
 - "flas"
