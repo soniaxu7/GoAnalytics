@@ -20,7 +20,7 @@ npm >=6.4.1
 Python 3
 
 ## Install Dependencies
-1. Python Dependencies
+1. Python Dependencies: First create an virtual environment (such as "evn") in your local repository, then instal all the dependencies using ``pip3``.
 ```
 python3 -m venv env
 source env/bin/activate
@@ -44,9 +44,14 @@ npm start
 
 ## Demo
 #### Upload page
-(https://github.com/soniaxu7/GoAnalytics/blob/master/documents/images/Upload.png "Upload Page")
+<div>
+  <img width="600" src="https://github.com/soniaxu7/GoAnalytics/blob/master/documents/images/Upload.png">
+<div>
+
 #### Trend page
-(https://github.com/soniaxu7/GoAnalytics/blob/master/documents/images/Upload.png "Trend Page")
+<div>
+  <img width="600" src="https://github.com/soniaxu7/GoAnalytics/blob/master/documents/images/Trend.png">
+<div>
 
 ## Repository
 [Github](https://github.com/soniaxu7/GoAnalytics.git)
