@@ -1,8 +1,6 @@
 import React from 'react';
-import { ToggleButtonGroup, ToggleButton, 
-  ButtonToolbar, Button, Container, Row, Col, Table } from 'react-bootstrap';
+import { ToggleButtonGroup, ToggleButton, Row, Col, Button} from 'react-bootstrap';
 import request from '../../../request';
-// import * as d3 from 'd3';
 import Chart from 'chart.js';
 
 class Trend extends React.Component {
@@ -20,6 +18,7 @@ class Trend extends React.Component {
       loadingChart: true,
     };
 
+    // should .bind(this) otherwise "this" doesn't work in the function
     this.getColumnNames = this.getColumnNames.bind(this);
     this.handleInitiative = this.handleInitiative.bind(this);
     this.handleRegulation = this.handleRegulation.bind(this);
@@ -27,20 +26,25 @@ class Trend extends React.Component {
     this.onConfirm = this.onConfirm.bind(this);
   }
 
+  // if the current page should load another dataset, retrieve all the column names from backend
   UNSAFE_componentWillReceiveProps(nextProps) {
-    this.getColumnNames();
+    const name = nextProps.name;
+    this.getColumnNames(name);
   }
 
+  // if it is the first time load the component, retrieve all the column names from backend
   componentDidMount() {
-    this.getColumnNames();
-    // this.drawChart();
+    const name = this.state.name;
+    this.getColumnNames(name);
   }
 
   drawChart(data) {
     const {x, y} = data;
 
+    // DOM element to append
     var ctx = document.getElementById('myChart');
 
+    // all the option data in charts
     var myChart = new Chart(ctx, {
         type: 'line',
         data: {
@@ -59,9 +63,8 @@ class Trend extends React.Component {
     });
   }
 
-  getColumnNames() {
-    const name = this.props.name;
-
+  // get column names from backend
+  getColumnNames(name) {
     request.getColumnNames(name).then((res) => {
       this.setState({
         name: res.name,
@@ -72,18 +75,21 @@ class Trend extends React.Component {
     });
   }
 
+  // select columns in Initiative
   handleInitiative(value, event) {
     this.setState({
       selected_initiative: value,
     });
   }
 
+  // select columns in Regulation
   handleRegulation(value, event) {
     this.setState({
       selected_regulation: value,
     });
   }
 
+  // select columns in Society
   handleSociety(value, event) {
     this.setState({
       selected_society: value,
@@ -91,6 +97,7 @@ class Trend extends React.Component {
   }
 
   generateChartData(data) {
+    // chart line and dot color
     const colors = ['rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
                     'rgba(255, 206, 86, 0.2)',
@@ -105,11 +112,13 @@ class Trend extends React.Component {
                     'rgba(255, 159, 64, 1)'];
     let colorIndex = 0;
 
+    // define X axis by Year
     var xAxis = [];
     data.forEach((item) => {
       xAxis.push(item['year']);
     });
 
+    // define Y axix by data
     var yDataset = []
     var keys = Object.keys(data[0]);
     for (let key of keys) {
@@ -126,7 +135,7 @@ class Trend extends React.Component {
           borderColor: colorsBorder[colorIndex],
           borderWidth: 1
         };
-        colorIndex += 1;
+        colorIndex = (colorIndex + 1) % 6;
 
         yDataset.push(y);
       }
@@ -135,7 +144,7 @@ class Trend extends React.Component {
     var res = {
       'x': xAxis,
       'y': yDataset
-    }
+    };
 
     return res;
   }
@@ -145,6 +154,7 @@ class Trend extends React.Component {
       loadingChart: true,
     });
 
+    // get all the selected columns
     var data = {};
     const {name, selected_society, selected_regulation, selected_initiative} = this.state;
 

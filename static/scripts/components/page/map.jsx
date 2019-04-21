@@ -1,31 +1,32 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { ButtonToolbar, Button, Container, Row, Col, Table, ToggleButtonGroup, ToggleButton, ButtonGroup } from 'react-bootstrap';
-
 import request from '../../../request';
+import Highcharts from 'highcharts';
+import HC_map from 'highcharts/modules/map';
+import HighchartsReact from 'highcharts-react-official';
 
-import Highcharts from 'highcharts'
-import HC_map from 'highcharts/modules/map'
-import HighchartsReact from 'highcharts-react-official'
-
+// Highcharts: all the information of Canada map
 const mapData = require('../../../lib/ca-all.js');
 
-HC_map(Highcharts)
+// need to initialize before using map
+HC_map(Highcharts);
 
 /*
 * Reference:
 * https://jsfiddle.net/gh/get/library/pure/highslide-software/highcharts.com/tree/master/samples/mapdata/countries/ca/ca-all
 * canada map data: https://code.highcharts.com/mapdata/countries/ca/ca-all.js
 */
-
 class Map extends React.Component {
   constructor(props) {
     super(props);
 
     const mapOptions = {
+      // title of the map
       title: {
         text: 'Canada'
       },
+      // gradation color of the map
       colorAxis: {
         min: 0,
         stops: [
@@ -34,46 +35,47 @@ class Map extends React.Component {
           [1, '#000022']
         ]
       },
-
-        mapNavigation: {
-            enabled: true,
-            buttonOptions: {
-                verticalAlign: 'bottom'
-            }
-        },
+      mapNavigation: {
+          enabled: true,
+          buttonOptions: {
+              verticalAlign: 'bottom'
+          }
+      },
       series: [{
-            mapData: mapData,
+            mapData: mapData, // Canada Map data
             dataLabels: {
                 enabled: true,
                 format: '{point.name}'
             },
             name: 'Canada',
-            data: data
+            data: []    // data of the dataset
         }]
-    }
+    };
 
     this.state = {
       name: this.props.name,
-      years: [],
-      type: undefined,
-      year: undefined,
+      years: [],        // all the years
+      type: undefined,  // Initiative, Regulation or Society
+      year: undefined,  // selected year
       loading: true,
-      options: mapOptions,
+      options: mapOptions,  // all the map data
     };
-
   }
 
+  // when the dataset changes, retrieve all the years of the new dataset
   UNSAFE_componentWillReceiveProps(nextProps) {
-    this.getYears();
+    const name = nextProps.name;
+    this.getYears(name);
   }
 
+  // when first time load the component, retrieve all the years of the new dataset
   componentDidMount() {
-    this.getYears();
+    const name = this.state.name;
+    this.getYears(name);
   }
 
-  getYears(data) {
-    const name = this.props.name;
-
+  // get all the Years
+  getYears(name) {
     request.getYears(name).then((res) => {
       this.setState({
         name,
@@ -82,6 +84,7 @@ class Map extends React.Component {
     });
   }
 
+  // get all the data of the selected year
   getYearData(data) {
     request.getYearData(data).then((res) => {
       let options = Object.assign({}, this.state.options);
@@ -162,6 +165,7 @@ class Map extends React.Component {
           </Row>
         </div>
         {
+          // The data map components
           loading ?
             null :
             <div style={{width: '1000px', height: '800px'}}>

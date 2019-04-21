@@ -13,19 +13,20 @@ class Correlation extends React.Component {
 
     this.getRelations = this.getRelations.bind(this);
   }
+  
   // if the current page should load another dataset, it requires backend request
   UNSAFE_componentWillReceiveProps(nextProps) {
-    this.getRelations();
+    const name = nextProps.name;
+    this.getRelations(name);
   }
 
   // when the first time load component, it should retrieve backend data
   componentDidMount() {
-    this.getRelations();
+    const name = this.props.name;
+    this.getRelations(name);
   }
 
-  getRelations() {
-    const name = this.props.name;
-
+  getRelations(name) {
     request.getRelations(name).then((res) => {
       this.setState({
         loading: false,

@@ -32,20 +32,20 @@ class Aggregation extends React.Component {
 
   // if the current page should load another dataset, it requires backend request
   UNSAFE_componentWillReceiveProps(nextProps) {
-    this.getColumnNames();
+    const name = nextProps.name;
+    this.getColumnNames(name);
   }
 
   // when the first time load component, it should retrieve backend data
   componentDidMount() {
-    this.getColumnNames();
+    const name = this.props.name;
+    this.getColumnNames(name);
   }
 
-  getColumnNames() {
+  getColumnNames(name) {
     this.setState({
       loadingGlobal: true,
     });
-
-    const name = this.props.name;
 
     // this is a Promise: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
     // after getting data, update the page

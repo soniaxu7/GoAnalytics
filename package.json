@@ -1,23 +1,21 @@
 {
-  "name": "gorim-web",
+  "name": "GoAnalytics",
   "version": "1.0.0",
   "description": "GoRIM Analytics",
-  "private": true,
+  "author": "Yina Xu",
+  "email": "yxu154@uottawa.ca",
   "repository": {
     "type": "git",
-    "url": "git+https://"
+    "url": "https://github.com/soniaxu7/GoAnalytics.git"
   },
   "engines": {
     "node": ">=10.15.3",
     "npm": ">=6.4.1"
   },
   "scripts": {
-    "build": "webpack --config webpack.config.js",
     "start": "webpack-dev-server --config ./webpack.config.js --mode development",
     "flask": "source env/bin/activate && export FLASK_APP='main.py' && export FLASK_DEBUG=1 && python3 -m flask run --host='0.0.0.0'"
   },
-  "keywords": [],
-  "author": "Yina Xu",
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.3.4",
@@ -40,25 +38,16 @@
     "webpack-dev-server": "^3.2.1"
   },
   "dependencies": {
-    "acorn": "^6.1.1",
     "babel-preset-react": "^6.24.1",
-    "bootstrap": "^4.3.1",
     "chart.js": "^2.8.0",
-    "d3": "^5.9.2",
-    "d3-scale": "^3.0.0",
-    "fs": "0.0.1-security",
     "highcharts": "^7.1.1",
     "highcharts-react-official": "^2.1.3",
-    "install": "^0.12.2",
-    "net": "^1.0.2",
-    "npm": "^6.9.0",
     "react": "^16.8.4",
     "react-bootstrap": "^1.0.0-beta.5",
     "react-dom": "^16.8.4",
     "react-highcharts": "^16.0.2",
     "react-redux": "^6.0.1",
     "react-router-dom": "^4.3.1",
-    "redux": "^4.0.1",
-    "tls": "0.0.1"
+    "redux": "^4.0.1"
   }
 }

@@ -16,9 +16,16 @@ class Page extends React.Component {
       name,
       page: 'aggregation' // set default page as "aggregation"
     };
+
+    this.updatePage = this.updatePage.bind(this);
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
+    this.updatePage(nextProps);
+  }
+
+  // update page when user clicks different dataset
+  updatePage(nextProps) {
     const new_name = nextProps.match.params.name;
 
     if (this.state.name != new_name) {
@@ -37,6 +44,7 @@ class Page extends React.Component {
   // display page by the current tab.
   getPage() {
     let {name, page} = this.state; 
+    console.log('index', name)
 
     // let subpage knows what is the name of the dataset of current page
     switch(page) {

@@ -1,38 +1,36 @@
 import React from 'react';
 import { Button, Form, Row, Col } from 'react-bootstrap';
 import request from '../../../request';
-
-import { connect } from 'react-redux'
-import { addDataset } from '../../actions'
+import { connect } from 'react-redux';
+import { addDataset } from '../../actions';
 
 class Upload extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
 
+    // should .bind(this) otherwise "this" doesn't work in the function
     this.upload_dataset = this.upload_dataset.bind(this);
-    // this.onChangeFileName = this.onChangeFileName.bind(this);
   }
 
   upload_dataset() {
     var form = document.getElementById('form-upload');
     var formData = new FormData(form);
 
+    // set Promise request
     request.uploadDataset(formData).then((res) => {
-
       const name = document.getElementById('dataset-name').value;
       this.props.dispatch(addDataset({ name }));
 
-      // React-router redirect
+      // Redirect url to new dataset
       this.props.history.push('/p/' + name);
     });
   }
 
+  // this is custom upload button, so needs to manually display filename
   onChangeFileName(name, e) {
     let filename = e.target.files[0].name;
     let input = document.getElementById(name + '-filename');
     input.value = filename;
-
-    console.log()
   }
 
   render() {
@@ -84,22 +82,6 @@ class Upload extends React.Component {
                 </div>
             </Col>
           </Form.Group>
-
-          {//<Form.Group as={Row}>
-          //   <Form.Label column sm="2">Initiative</Form.Label>
-          //   <Col sm="4"><Form.Control name="initiative" plaintext readOnly type="file" id="dataset-initiative" /></Col>
-          // </Form.Group>
-          // <Form.Group as={Row}>
-          //   <Form.Label column sm="2">Regulation</Form.Label>
-          //   <Col sm="4"><Form.Control name="regulation" plaintext readOnly type="file" id="dataset-regulation" /></Col>
-          // </Form.Group>
-          // <Form.Group as={Row}>
-          //   <Form.Label column sm="2">Society</Form.Label>
-          //   <Col sm="4"><Form.Control name="society" plaintext readOnly type="file" id="dataset-society" /></Col>
-          // </Form.Group>
-          //
-        }
-          
           <Form.Group as={Row} style={{marginTop: '12px'}} >
             <Form.Label column sm="2"></Form.Label>
             <Col sm="4">
