@@ -1,4 +1,4 @@
-## List of knowledge
+## Requirements
 ### Backend
 - Environment: Python 3.7
 - pip3
@@ -13,11 +13,6 @@ For more information about backend file structure, pleaes refer to documents (he
 - Dependecies: (package.json)[https://github.com/soniaxu7/GoAnalytics/blob/master/documents/package.json.md]
 - Entry JS file: /static/
 For more information about frontend file structure, pleaes refer to documents (here)[https://github.com/soniaxu7/GoAnalytics/blob/master/documents/frontend.file.structure.md].
-
-## Requirements
-node >=10.15.3
-npm >=6.4.1
-Python 3
 
 ## Install Dependencies
 1. Python Dependencies: First create an virtual environment (such as "evn") in your local repository, then instal all the dependencies using ``pip3``.
@@ -40,21 +35,18 @@ npm run flask
 ```
 npm start
 ```
-3. Then find the application on (http://localhost:5000)[http://localhost:5000]
+3. After successfully installed dependencies, visit your application on (here)[http://localhost:5000].
 
 ## Demo
 #### Upload page
 <div>
-  <img width="600" src="https://github.com/soniaxu7/GoAnalytics/blob/master/documents/images/Upload.png">
+  <img width="600" src="https://github.com/soniaxu7/GoAnalytics/blob/master/documents/images/upload.png">
 <div>
 
 #### Trend page
 <div>
-  <img width="600" src="https://github.com/soniaxu7/GoAnalytics/blob/master/documents/images/Trend.png">
+  <img width="600" src="https://github.com/soniaxu7/GoAnalytics/blob/master/documents/images/trend.png">
 <div>
-
-## Repository
-[Github](https://github.com/soniaxu7/GoAnalytics.git)
 
 ## Author
 [Sonia Xu](mailto:soniaxu7@foxmail.com)
