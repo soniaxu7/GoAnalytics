@@ -1,3 +1,6 @@
+## Introduction
+GoAnalytics, is a single page applicaiton which is support GoRIM model. It provides upload CSV files, find aggregations and correlations, visualize trend as well as display Canada map by data.
+
 ## Requirements
 ### Backend
 - Environment: Python 3.7
@@ -40,12 +43,12 @@ npm start
 ## Demo
 #### Upload page
 <div>
-  <img width="600" src="https://github.com/soniaxu7/GoAnalytics/blob/master/documents/images/upload.png">
+  <img width="600" src="https://github.com/soniaxu7/GoAnalytics/blob/master/documents/images/upload_page.png">
 <div>
 
 #### Trend page
 <div>
-  <img width="600" src="https://github.com/soniaxu7/GoAnalytics/blob/master/documents/images/trend.png">
+  <img width="600" src="https://github.com/soniaxu7/GoAnalytics/blob/master/documents/images/trend_page.png">
 <div>
 
 ## Author
