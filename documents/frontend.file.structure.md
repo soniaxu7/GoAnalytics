@@ -14,8 +14,8 @@ React can define *Virtual DOM*, also known as *React component*. This allows dev
 - **/static/data/data_list.json**: This stores list of name of dataset when first time visiting the page.
 - **/lib**: This directory manage all the dependencies which are independent from **NPM**.
 - **/request**: Manage all the backend RESTful request in this file. You can easily find and make changes when API changes.
-- */scripts/*: Stores all the source code of React components. Please refer to the next sections.
-- */style*: All the less files are stored in this files. Dividing files into functions which is easy to read and maintain styling.
+- **/scripts/**: Stores all the source code of React components. Please refer to the next sections. All the ``.jsx`` files are React component files.
+- **/style**: All the less files are stored in this files. Dividing files into functions which is easy to read and maintain styling.
 
 ## "/scripts" directory
 Redux is using MVC(Model-View-Controller) pattern. For more about Redux, please read instructions (here)[https://redux.js.org/introduction/getting-started].

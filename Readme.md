@@ -5,17 +5,17 @@ GoAnalytics, is a single page applicaiton which is support GoRIM model. It provi
 ### Backend
 - Environment: Python 3.7
 - pip3
-- Dependecies: (requirement.txt)[https://github.com/soniaxu7/GoAnalytics/blob/master/documents/requirement.txt.md]
+- Dependecies: [requirement.txt](https://github.com/soniaxu7/GoAnalytics/blob/master/documents/requirement.txt.md)
 - Entry backend file: /main.py
 - Entry HTML file: /templates/index.html
-For more information about backend file structure, pleaes refer to documents (here)[https://github.com/soniaxu7/GoAnalytics/blob/master/documents/backend.file.structure.md].
+For more information about backend file structure, pleaes refer to documents [here](https://github.com/soniaxu7/GoAnalytics/blob/master/documents/backend.file.structure.md).
 
 ### Frontend
 - Environment: Node >= 10.15.3
 - NPM >= 6.4. 1
-- Dependecies: (package.json)[https://github.com/soniaxu7/GoAnalytics/blob/master/documents/package.json.md]
+- Dependecies: [package.json](https://github.com/soniaxu7/GoAnalytics/blob/master/documents/package.json.md)
 - Entry JS file: /static/
-For more information about frontend file structure, pleaes refer to documents (here)[https://github.com/soniaxu7/GoAnalytics/blob/master/documents/frontend.file.structure.md].
+For more information about frontend file structure, pleaes refer to documents [here](https://github.com/soniaxu7/GoAnalytics/blob/master/documents/frontend.file.structure.md).
 
 ## Install Dependencies
 1. Python Dependencies: First create an virtual environment (such as "evn") in your local repository, then instal all the dependencies using ``pip3``.
@@ -38,7 +38,7 @@ npm run flask
 ```
 npm start
 ```
-3. After successfully installed dependencies, visit your application on (here)[http://localhost:5000].
+3. After successfully installed dependencies, visit your application on [here](http://localhost:5000).
 
 ## Demo
 #### Upload page
