@@ -42,6 +42,12 @@ npm start
 ```
 3. Then find the application on (http://localhost:5000)[http://localhost:5000]
 
+## Demo
+#### Upload page
+(https://github.com/soniaxu7/GoAnalytics/blob/master/documents/images/Upload.png "Upload Page")
+#### Trend page
+(https://github.com/soniaxu7/GoAnalytics/blob/master/documents/images/Upload.png "Trend Page")
+
 ## Repository
 [Github](https://github.com/soniaxu7/GoAnalytics.git)
 
