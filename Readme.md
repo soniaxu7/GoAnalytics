@@ -1,42 +1,32 @@
+## Repository
+[Github](https://github.com/soniaxu7/GoAnalytics.git)
+
 ## Requirements
-1. Google Cloud Server (Flask on App Engine)
-2. python3.7 (python 2.7 will be deprecated from 2020)
+node >=10.15.3
+npm >=6.4.1
+Python 3
 
-## Remote Google Cloud server URL
-[Click Here](http://starlit-granite-232504.appspot.com)
-
-## Installation
-[Google Cloud doc](https://cloud.google.com/appengine/docs/standard/python/getting-started/python-standard-env)
-
-a. Create an isolated Python environment in a directory external to your project and activate it
+## Install Dependencies
+1. Python Dependencies
 ```
 python3 -m venv env
 source env/bin/activate
-```
-
-b.Navigate to your project directory and install dependencies:
-```
 pip3 install  -r requirements.txt
 ```
-
+2. JavaScript Dependencies
+```
+npm install
+```
 
 ## Running in local machine (auto reload)
+1. Backend
 ```
-export FLASK_APP=main.py
-export FLASK_DEBUG=1
-python -m flask run
+npm run flask
 ```
-
-## Initiate Google Cloud
+2. Frontend
 ```
-gcloud init
-```
-
-## Push to the remote server
-```
-gcloud app deploy
+npm start
 ```
 
 ## Author
 [Sonia Xu](mailto:soniaxu7@foxmail.com)
-

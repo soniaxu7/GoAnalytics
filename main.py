@@ -1,49 +1,42 @@
 import json
 import os
-import csv
-from flask import Flask, render_template, request, Response
 import pandas as pd
-import numpy
-
+from flask import Flask, render_template, request
 from goa.process.gorim import get_relations_helper
 
-# from goa.storage.storage import run_storage
+# set static folder that all the users can visit
+app = Flask(__name__, static_folder='dist')
 
-app = Flask(__name__, static_folder='./dist',)
-
-UPLOAD_FOLDER = './dataset'
+UPLOAD_FOLDER = 'dataset'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
+# response when frontend first time requests the page
 @app.route("/")
 @app.route("/upload")
-@app.route("/viz")
+@app.route("/p/<name>")
 def index():
     return render_template('index.html')
 
-@app.route("/p/<name>")
-def dataset_page(name):
-    return render_template('index.html')
-
-@app.route('/api/get_dataset', methods=['GET'])
-def get_dataset():
-    test = {'hi': 'get'}
-    ret = json.dumps(test)
-
-    return ret
-
+# upload dataset and stores in the "dataset" folder
 @app.route('/api/upload_dataset', methods=['POST'])
 def upload_dataset():
+    # retrieves request data
     name = request.form['name'].lower()
     initiative = request.files['initiative']
     regulation = request.files['regulation']
     society = request.files['society']
 
+    # use "os" to let this code works in both Windows and Mac/Linux
     initiative.save(os.path.join(app.config['UPLOAD_FOLDER'], name + '_initiative.csv'))
     regulation.save(os.path.join(app.config['UPLOAD_FOLDER'], name + '_regulation.csv'))
     society.save(os.path.join(app.config['UPLOAD_FOLDER'], name + '_society.csv'))
 
-    test = {'hi': 'post'}
-    ret = json.dumps(test)
+    data = {
+        'Initiative': name + '_initiative.csv',
+        'Regulation': name + '_regulation.csv',
+        'Society': name + '_society.csv'
+    }
+    ret = json.dumps(data)
 
     return ret
 
@@ -51,11 +44,12 @@ def upload_dataset():
 def get_column_names():
     name = request.args.get('name')
 
-    initiative = pd.read_csv('./dataset/' + name + '_initiative.csv')
+    # retrieve local CSV files by name
+    initiative = pd.read_csv(os.path.join(app.config['UPLOAD_FOLDER'], name + '_initiative.csv'))
     initiative_columns = initiative.columns.tolist()
-    regulation = pd.read_csv('./dataset/' + name + '_regulation.csv')
+    regulation = pd.read_csv(os.path.join(app.config['UPLOAD_FOLDER'], name + '_regulation.csv'))
     regulation_columns = regulation.columns.tolist()
-    society = pd.read_csv('./dataset/' + name + '_society.csv')
+    society = pd.read_csv(os.path.join(app.config['UPLOAD_FOLDER'], name + '_society.csv'))
     society_columns = society.columns.tolist()
 
     data = {
@@ -71,39 +65,37 @@ def get_column_names():
 
 @app.route('/api/get_column_data', methods=['GET', 'POST'])
 def get_column_data():
-    # space %20
-    # name = request.args.get('name')
-    # name = 'Hello_world'
-
+    # retrieves request data
     data = json.loads(request.data)
     name = data['name']
     initiative_columns = data['initiative']
     regulation_columns = data['regulation']
     society_columns = data['society']
 
-    print('---------', data)
-
-    initiative = pd.read_csv('./dataset/' + name + '_initiative.csv')
+    # retrieve years
+    initiative = pd.read_csv(os.path.join(app.config['UPLOAD_FOLDER'], name + '_initiative.csv'))
     data_by_year = []
     for year in initiative['Year'].tolist():
         data_by_year.append({'year': year})
 
+    # get data in Initiatives
     if len(initiative_columns) > 0:
         for col in initiative_columns:
             col_data = initiative[col].tolist()
             for i, row in enumerate(data_by_year):
                 row['Initiative: ' + col] = col_data[i]
 
+    # get data in Regulations
     if len(regulation_columns) > 0:
-        regulation = pd.read_csv('./dataset/' + name + '_regulation.csv')
+        regulation = pd.read_csv(os.path.join(app.config['UPLOAD_FOLDER'], name + '_regulation.csv'))
         for col in regulation_columns:
             col_data = regulation[col].tolist()
             for i, row in enumerate(data_by_year):
                 row['Regulation: ' + col] = col_data[i]
 
-
+    # get data in Society
     if len(society_columns) > 0:
-        society = pd.read_csv('./dataset/' + name + '_society.csv')
+        society = pd.read_csv(os.path.join(app.config['UPLOAD_FOLDER'], name + '_society.csv'))
         for col in society_columns:
             col_data = society[col].tolist()
             for i, row in enumerate(data_by_year):
@@ -118,7 +110,8 @@ def get_column_data():
 def get_years():
     name = request.args.get('name')
 
-    initiative = pd.read_csv('./dataset/' + name + '_initiative.csv')
+    # get Years in any model
+    initiative = pd.read_csv(os.path.join(app.config['UPLOAD_FOLDER'], name + '_initiative.csv'))
     years = initiative['Year'].tolist()
 
     ret = json.dumps(years)
@@ -132,16 +125,17 @@ def get_year_data():
     type = request.args.get('type')
     year = int(request.args.get('year'))
 
-    file = pd.read_csv('./dataset/' + name + '_' + type + '.csv')
-    file.set_index('Year', inplace=True)
+    # get data from selected year and type of model
+    csv_file = pd.read_csv(os.path.join(app.config['UPLOAD_FOLDER'], name + '_' + type + '.csv'))
+    csv_file.set_index('Year', inplace=True)
 
-    print(file.loc[year, 'ca-bc'])
-
+    # pre defined key of Canada states
     ca_states = ['ca-5682', 'ca-bc', 'ca-nu',
      'ca-nt', 'ca-ab', 'ca-nl', 'ca-sk', 'ca-mb',
      'ca-qc', 'ca-on', 'ca-nb', 'ca-ns', 'ca-pe',
      'ca-yt']
 
+    # get target data
     data = []
     for state in ca_states:
         num = int(file.loc[year, state])
@@ -152,31 +146,11 @@ def get_year_data():
     return ret
 
 
-# @app.route('/api/get_csv', methods=['GET'])
-# def get_csv():
-#     with open('./dataset/Hello_world_initiative.csv') as csvfile:
-#         file = csv.reader(csvfile)
-#         return Response(
-#             file,
-#             mimetype="text/csv",
-#             headers={"Content-disposition":
-#                      "attachment; filename=Hello_world_initiative.csv"})
-
-
-if __name__ == '__main__':
-    app.jinja_env.auto_reload = True
-    app.config['TEMPLATES_AUTO_RELOAD'] = True
-    app.run(debug=True)
-
 @app.route('/api/get_relations', methods=['GET'])
 def get_relations():
     name = request.args.get('name')
 
-    print(name)
-
+    # get correlation data by helper functions
     ret = get_relations_helper(name)
 
     return ret
-
-# test google cloud storage
-# run_storage()

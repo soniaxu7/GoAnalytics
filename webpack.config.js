@@ -1,5 +1,4 @@
 const webpack = require('webpack');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -40,17 +39,5 @@ module.exports = {
   devServer: {
     contentBase: './dist',
     hot: true
-  },
-
-  plugins: isProduction ? [
-    new MiniCssExtractPlugin(),
-    new webpack.HotModuleReplacementPlugin('./dist/style.css')
-  ] : [
-    new webpack.HotModuleReplacementPlugin({
-        filename: "./dist/style.css"
-    })
-  ],
-  node: {
-    fs: "empty"
   }
 };

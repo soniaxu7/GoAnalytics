@@ -53,7 +53,7 @@ class Map extends React.Component {
     };
 
     this.state = {
-      name: this.props.name,
+      name: props.name,
       years: [],        // all the years
       type: undefined,  // Initiative, Regulation or Society
       year: undefined,  // selected year

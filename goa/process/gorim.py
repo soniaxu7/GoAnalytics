@@ -1,8 +1,9 @@
 import pandas as pd
 import json
+import os
 
 # all the uploaded dataset should be in this folder
-UPLOAD_FOLDER = './dataset/'
+UPLOAD_FOLDER = 'dataset'
 
 # add prefix to the column names
 def get_formatted_column_names(dataset, prefix):
@@ -18,9 +19,10 @@ def get_formatted_column_names(dataset, prefix):
 
 # get correlation results of the current dataset
 def get_relations_helper(name):
-    init = pd.read_csv(UPLOAD_FOLDER + name + '_initiative.csv', encoding="utf-8")
-    regu = pd.read_csv(UPLOAD_FOLDER + name + '_regulation.csv', encoding="utf-8")
-    society = pd.read_csv(UPLOAD_FOLDER + name + '_society.csv', encoding="utf-8")
+    # use os to avoid error in multiple platforms
+    init = pd.read_csv(os.path.join(UPLOAD_FOLDER, name + '_initiative.csv'), encoding="utf-8")
+    regu = pd.read_csv(os.path.join(UPLOAD_FOLDER, name + '_regulation.csv'), encoding="utf-8")
+    society = pd.read_csv(os.path.join(UPLOAD_FOLDER, name + '_society.csv'), encoding="utf-8")
 
     # add prefix to the column names
     init_cols = get_formatted_column_names(init, 'Initiative: ')

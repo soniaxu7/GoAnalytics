@@ -44,7 +44,6 @@ class Page extends React.Component {
   // display page by the current tab.
   getPage() {
     let {name, page} = this.state; 
-    console.log('index', name)
 
     // let subpage knows what is the name of the dataset of current page
     switch(page) {

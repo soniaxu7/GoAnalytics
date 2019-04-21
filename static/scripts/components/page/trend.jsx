@@ -8,7 +8,7 @@ class Trend extends React.Component {
     super(props);
 
     this.state = {
-      name: '',
+      name: props.name,
       initiative: [],
       selected_initiative: [],
       regulation: [],

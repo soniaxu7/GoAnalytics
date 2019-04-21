@@ -2,8 +2,8 @@
   "name": "GoAnalytics",
   "version": "1.0.0",
   "description": "GoRIM Analytics",
-  "author": "Yina Xu",
-  "email": "yxu154@uottawa.ca",
+  "author": "Sonia Xu",
+  "email": "soniaxu7@foxmail.com",
   "repository": {
     "type": "git",
     "url": "https://github.com/soniaxu7/GoAnalytics.git"
@@ -24,21 +24,18 @@
     "babel-core": "^6.26.3",
     "babel-loader": "^8.0.5",
     "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
     "css-loader": "^2.1.1",
-    "json-loader": "^0.5.7",
     "less": "^3.9.0",
     "less-loader": "^4.1.0",
-    "mini-css-extract-plugin": "^0.5.0",
     "raw-loader": "^2.0.0",
     "react-hot-loader": "^4.8.0",
     "style-loader": "^0.23.1",
-    "url-loader": "^1.1.2",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.2.3",
     "webpack-dev-server": "^3.2.1"
   },
   "dependencies": {
-    "babel-preset-react": "^6.24.1",
     "chart.js": "^2.8.0",
     "highcharts": "^7.1.1",
     "highcharts-react-official": "^2.1.3",
