@@ -13,8 +13,11 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 # response when frontend first time requests the page
 @app.route("/")
 @app.route("/upload")
-@app.route("/p/<name>")
 def index():
+    return render_template('index.html')
+
+@app.route("/p/<name>")
+def dataset_page(name):
     return render_template('index.html')
 
 # upload dataset and stores in the "dataset" folder
@@ -138,7 +141,7 @@ def get_year_data():
     # get target data
     data = []
     for state in ca_states:
-        num = int(file.loc[year, state])
+        num = int(csv_file.loc[year, state])
         data.append([state, num])
 
     ret = json.dumps({'data': data})

@@ -6,7 +6,7 @@ GoAnalytics, is a single page applicaiton which is support GoRIM model. It provi
 - Environment: Python 3.7
 - pip3
 - Dependecies: [requirement.txt](https://github.com/soniaxu7/GoAnalytics/blob/master/documents/requirement.txt.md)
-- Entry backend file: ```/main.py``
+- Entry backend file: ``/main.py``
 - Entry HTML file: ``/templates/index.html``
 
 For more information about backend file structure, pleaes refer to documents [here](https://github.com/soniaxu7/GoAnalytics/blob/master/documents/backend.file.structure.md).
