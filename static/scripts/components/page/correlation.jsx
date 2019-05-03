@@ -36,17 +36,59 @@ class Correlation extends React.Component {
   }
 
   // display correlation by percentage
-  getPercentage(str) {
-    return String(Number(str).toFixed(4)*100).substring(0, 5) + ' %';
+  getPercentage(number) {
+    return String(number.toFixed(4)*100).substring(0, 5) + ' %';
   }
   
+  startWith(str) {
+    var reg = new RegExp('^'+str);
+    return reg.test(this);
+  }
+
+  filterData(data) {
+    // filter invalid result
+    data = data.filter((item) => (item.correlation != 'None'));
+
+    // transform correlation from String to Int, then sort list by descending correlation order
+    data = data.map((item) => Object.assign({}, item, {'correlation': Number(item.correlation)}));
+    data.sort((a, b) => b.correlation - a.correlation);
+
+    // filter useless correlation and leave
+    // from initiatives to regulations
+    // from regulations to society
+    // from initiatives to society.
+    const validCorr = {
+      'Initiative': ['Regulation', 'Society'],
+      'Regulation': ['Society'],
+    };
+    data = data.filter((item) => {
+      let start1 = item.col_1.substring(0, 10);
+      if (validCorr[start1]) {
+        for (let start2 of validCorr[start1]) {
+          if (start2 == item.col_2.substring(0, start2.length)) {
+            return true;
+          }
+        }
+      }
+
+      return false;
+    });
+
+    // limit the length of list to 30
+    const MAX_LENGTH = 30;
+    if (data.length > MAX_LENGTH) {
+      data.length = MAX_LENGTH;
+    }
+
+    return data;
+  }
+
   render() {
-    const allData = this.state.data;
+    let data = this.state.data;
     const loading = this.state.loading;
 
-    // if the columns are from same model, ignore them
-    const data = allData.filter((item) => (item.correlation != 'None' && 
-      (item.col_1.substring(0, 7) != item.col_2.substring(0, 7))));
+    // filter unnecessary results
+    data = this.filterData(data);
 
     return (
       loading ?
@@ -57,8 +99,8 @@ class Correlation extends React.Component {
           <thead>
             <tr>
               <th>#</th>
-              <th>Name of Index 1</th>
-              <th>Name of Index 2</th>
+              <th>Source Element</th>
+              <th>Target Element</th>
               <th>Relations</th>
             </tr>
           </thead>

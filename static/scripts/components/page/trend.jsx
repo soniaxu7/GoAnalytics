@@ -24,18 +24,30 @@ class Trend extends React.Component {
     this.handleRegulation = this.handleRegulation.bind(this);
     this.handleSociety = this.handleSociety.bind(this);
     this.onConfirm = this.onConfirm.bind(this);
+    this.updateDataset = this.updateDataset.bind(this);
   }
 
   // if the current page should load another dataset, retrieve all the column names from backend
   UNSAFE_componentWillReceiveProps(nextProps) {
     const name = nextProps.name;
-    this.getColumnNames(name);
+    this.updateDataset(name);
   }
 
   // if it is the first time load the component, retrieve all the column names from backend
   componentDidMount() {
     const name = this.state.name;
-    this.getColumnNames(name);
+    this.updateDataset(name);
+  }
+
+  updateDataset(name) {
+    this.setState({
+      selected_initiative: [],
+      selected_regulation: [],
+      selected_society: [],
+      loadingChart: true,
+    }, () => {
+      this.getColumnNames(name);
+    });
   }
 
   drawChart(data) {

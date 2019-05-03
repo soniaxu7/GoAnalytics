@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Form, Row, Col } from 'react-bootstrap';
+import { Button, Form, Row, Col, Alert } from 'react-bootstrap';
 import request from '../../../request';
 import { connect } from 'react-redux';
 import { addDataset } from '../../actions';
@@ -36,6 +36,11 @@ class Upload extends React.Component {
   render() {
     return (
       <div className="form-upload" style={{width: '1124px'}}>
+        <Col sm="6" style={{paddingLeft: '0'}}>
+          <Alert variant="info">
+            Please upload CSV files only.
+          </Alert>
+        </Col>
         <Form id="form-upload" encType="multipart/form-data">
           <Form.Group as={Row}>
             <Form.Label column sm="2">Name</Form.Label>

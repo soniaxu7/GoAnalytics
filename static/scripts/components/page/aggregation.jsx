@@ -28,23 +28,36 @@ class Aggregation extends React.Component {
     this.handleRegulation = this.handleRegulation.bind(this);
     this.handleSociety = this.handleSociety.bind(this);
     this.onConfirm = this.onConfirm.bind(this);
+    this.updateDataset = this.updateDataset.bind(this);
   }
 
   // if the current page should load another dataset, it requires backend request
   UNSAFE_componentWillReceiveProps(nextProps) {
     const name = nextProps.name;
-    this.getColumnNames(name);
+    this.updateDataset(name);
   }
 
   // when the first time load component, it should retrieve backend data
   componentDidMount() {
     const name = this.props.name;
-    this.getColumnNames(name);
+    this.updateDataset(name);
+  }
+
+  updateDataset(name) {
+    this.setState({
+      selected_initiative: [],
+      selected_regulation: [],
+      selected_society: [],
+      loading: true,
+      loadingGlobal: true
+    }, () => {
+      this.getColumnNames(name);
+    });
   }
 
   getColumnNames(name) {
     this.setState({
-      loadingGlobal: true,
+      loading: true,
     });
 
     // this is a Promise: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
@@ -208,7 +221,7 @@ class Aggregation extends React.Component {
           {
             loading ?
               null : 
-              <div style={{marginTop: '12px'}}>
+              <div style={{marginTop: '12px', maxWidth: '1120px'}}>
                 <h3>Overview</h3>
                 <Table striped bordered hover style={{marginTop: '20px'}} >
                   <thead>
