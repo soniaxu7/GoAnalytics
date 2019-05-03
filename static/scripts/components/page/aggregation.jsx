@@ -1,5 +1,5 @@
 import React from 'react';
-import { ToggleButtonGroup, ToggleButton, Button, Row, Col, Table } from 'react-bootstrap';
+import { ToggleButtonGroup, ToggleButton, Button, Row, Col, Table, Alert } from 'react-bootstrap';
 import request from '../../../request';
 
 class Aggregation extends React.Component {
@@ -55,6 +55,13 @@ class Aggregation extends React.Component {
     });
   }
 
+  removeElement(list, item) {
+    let index = list.indexOf(item);
+    if (index >= 0) {
+      list.splice(index, 1);
+    }
+  }
+
   getColumnNames(name) {
     this.setState({
       loading: true,
@@ -63,6 +70,10 @@ class Aggregation extends React.Component {
     // this is a Promise: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
     // after getting data, update the page
     request.getColumnNames(name).then((res) => {
+      this.removeElement(res.initiative_columns, 'Year');
+      this.removeElement(res.regulation_columns, 'Year');
+      this.removeElement(res.society_columns, 'Year');
+
       this.setState({
         name: res.name,
         initiative: res.initiative_columns,
@@ -222,6 +233,11 @@ class Aggregation extends React.Component {
             loading ?
               null : 
               <div style={{marginTop: '12px', maxWidth: '1120px'}}>
+                <div style={{width: '570px'}}>
+                  <Alert variant="info">
+                    The table data is displayed by Year.
+                  </Alert>
+                </div>
                 <h3>Overview</h3>
                 <Table striped bordered hover style={{marginTop: '20px'}} >
                   <thead>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ToggleButtonGroup, ToggleButton, Row, Col, Button} from 'react-bootstrap';
+import { ToggleButtonGroup, ToggleButton, Row, Col, Button, Alert} from 'react-bootstrap';
 import request from '../../../request';
 import Chart from 'chart.js';
 
@@ -75,9 +75,20 @@ class Trend extends React.Component {
     });
   }
 
+  removeElement(list, item) {
+    let index = list.indexOf(item);
+    if (index >= 0) {
+      list.splice(index, 1);
+    }
+  }
+
   // get column names from backend
   getColumnNames(name) {
     request.getColumnNames(name).then((res) => {
+      this.removeElement(res.initiative_columns, 'Year');
+      this.removeElement(res.regulation_columns, 'Year');
+      this.removeElement(res.society_columns, 'Year');
+
       this.setState({
         name: res.name,
         initiative: res.initiative_columns,
@@ -245,7 +256,15 @@ class Trend extends React.Component {
         {
           loadingChart ?
             null
-            : <canvas id="myChart" width="120" height="80"></canvas>
+            : 
+              <div>
+                <div style={{width: '570px', marginTop: '12px'}}>
+                  <Alert variant="info">
+                    The trend data is displayed by Year.
+                  </Alert>
+                </div>
+                <canvas id="myChart" width="120" height="80"></canvas>
+              </div>
         }
       </div>
     );
